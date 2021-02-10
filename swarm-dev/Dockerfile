@@ -38,7 +38,7 @@ RUN jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
     @pyviz/jupyterlab_pyviz \
     dask-labextension
-    
+
 RUN jupyter lab build
 
 RUN pip install --upgrade git+https://github.com/ESA-VirES/VirES-Python-Client@staging#egg=viresclient
@@ -53,7 +53,9 @@ RUN cd $HOME/build \
     && conda build MagneticModel/libcdf \
     && conda build MagneticModel/qdipole
 RUN mamba install --quiet --yes --use-local qdipole cdf
-RUN pip install spacepy
+# Avoid problematic ffnet dependency of spacepy
+RUN pip install python_dateutil \
+    && pip install --no-deps spacepy
 RUN /bin/bash -c 'source activate base && pip install build/MagneticModel/eoxmagmod'
 ENV CDF_LIB /opt/conda/lib
 RUN conda build purge \
