@@ -21,7 +21,7 @@ dependencies:
  - pandoc
  # Jupyter & associated tools/extensions
  - jupyter
- - jupyterlab
+ - jupyterlab<3
  - jupyterlab-git
 #  - nb_conda_kernels
  - nbgitpuller

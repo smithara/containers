@@ -43,22 +43,20 @@ RUN jupyter lab build
 
 RUN pip install --upgrade git+https://github.com/ESA-VirES/VirES-Python-Client@staging#egg=viresclient
 
-# # Magnetic Models and dependencies
-# RUN mkdir $HOME/build \
-#     && cd $HOME/build \
-#     && wget --no-verbose https://github.com/ESA-VirES/MagneticModel/archive/staging.zip -O MagneticModel-staging.zip \
-#     && unzip MagneticModel-staging.zip \
-#     && mv MagneticModel-staging MagneticModel \
-#     # && conda install --quiet --yes conda-build conda-verify \
-#     && conda build MagneticModel/libcdf \
-#     && conda build MagneticModel/qdipole \
-#     && conda build purge \
-#     && conda install --quiet --yes --use-local qdipole cdf \
-#     # && conda remove --quiet --yes --force conda-build conda-verify \
-#     && conda clean --all -f -y \
-#     # && pip install --upgrade pip \
-#     && pip install spacepy \
-#     && /bin/bash -c 'source activate base && pip install MagneticModel/eoxmagmod' \
-#     && cd $HOME \
-#     && rm -fR $HOME/build
-
+# Magnetic Models and dependencies, including spacepy
+RUN mkdir $HOME/build \
+    && cd $HOME/build \
+    && wget --no-verbose https://github.com/ESA-VirES/MagneticModel/archive/staging.zip -O MagneticModel-staging.zip \
+    && unzip MagneticModel-staging.zip \
+    && mv MagneticModel-staging MagneticModel
+RUN cd $HOME/build \
+    && conda build MagneticModel/libcdf \
+    && conda build MagneticModel/qdipole
+RUN mamba install --quiet --yes --use-local qdipole cdf
+RUN pip install spacepy
+RUN /bin/bash -c 'source activate base && pip install build/MagneticModel/eoxmagmod'
+ENV CDF_LIB /opt/conda/lib
+RUN conda build purge \
+    && cd $HOME \
+    && rm -fR $HOME/build \
+    && mamba clean -yaf
