@@ -1,0 +1,32 @@
+#!/bin/bash
+
+jupyter labextension install --clean \
+                            @jupyter-widgets/jupyterlab-manager \
+                            @jupyterlab/geojson-extension \
+                            dask-labextension \
+                            @pyviz/jupyterlab_pyviz \
+                            jupyter-leaflet
+
+# NB: will need to change conda to install into correct env
+# and pip will use ${NB_PYTHON_PREFIX}/bin/pip
+# Check https://github.com/pangeo-data/pangeo-docker-images/blob/master/base-image/Dockerfile
+
+# # eoxmagmod
+# branch="staging"
+# mkdir build
+# cd build
+# wget --no-verbose https://github.com/ESA-VirES/MagneticModel/archive/$branch.zip -O MagneticModel.zip
+# unzip MagneticModel.zip
+# mv MagneticModel-$branch MagneticModel
+# conda build MagneticModel/libcdf
+# conda build MagneticModel/qdipole
+# conda build purge
+# conda install --quiet --yes --use-local qdipole cdf
+# pip install MagneticModel/eoxmagmod
+# cd ..
+# rm -fR build
+
+# pip install python_dateutil
+# pip install --no-deps spacepy
+
+#EOF

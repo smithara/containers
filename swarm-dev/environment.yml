@@ -1,0 +1,69 @@
+name: swarm-dev
+channels:
+ - conda-forge
+dependencies:
+ - python=3.8*
+ - pip
+ # Build tools
+ - conda-build
+ - conda-verify
+ - fortran-compiler
+ - cxx-compiler
+ - make
+ # Generic dev stuff
+ - pytest
+ - flake8
+ - pylint
+ # Doc stuff
+ - sphinx
+ - sphinx_rtd_theme
+ - nbsphinx
+ - pandoc
+ # Jupyter & associated tools/extensions
+ - jupyter
+ - jupyterlab
+ - jupyterlab-git
+#  - nb_conda_kernels
+ - nbgitpuller
+ - nbstripout
+ - nbdime
+ - nbresuse
+ - jupyter-resource-usage
+#  - nbval
+ - ipywidgets
+ - ipyparallel
+ - ipympl
+ - watermark
+ # To add?
+  # https://github.com/jtpio/jupyterlab-system-monitor
+ # Scientific Python (+ geospatial)
+ - numpy
+ - scipy
+ - matplotlib
+ - pandas
+ - geopandas
+ - xarray
+ - dask
+ - dask-ml
+ - dask-labextension
+ - netcdf4
+ - h5py
+ - pytables
+ - networkx
+ - zarr
+ - intake
+ - intake-xarray
+ - cartopy
+ - ipyleaflet
+ # Holoviz advanced visualisation tools
+ - holoviews
+ - hvplot
+ - geoviews
+ - datashader
+ - param
+ - colorcet
+ - pyct[cmd]
+ - fastparquet
+ - panel
+ - jupyter-panel-proxy
+ - selenium

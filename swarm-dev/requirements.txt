@@ -1,0 +1,6 @@
+viresclient
+hapiclient
+chaosmagpy
+magpysv
+pyamps
+apexpy

@@ -1,0 +1,170 @@
+name: pangeo
+channels:
+  - conda-forge
+dependencies:
+################################################################################
+# https://github.com/pangeo-data/pangeo-docker-images/blob/master/pangeo-notebook/environment.yml
+################################################################################
+ - python=3.8*
+ - pangeo-notebook
+ - pip=20
+ - adlfs
+ - awscli
+ - boto3
+ - bottleneck
+ - cartopy
+ - cfgrib
+ - cmip6_preprocessing
+ - ciso
+ - dask-ml
+ - datashader
+ - descartes
+ - eofs
+ - erddapy
+ - esmpy
+ - fastjmd95
+ - fsspec
+ - gcsfs
+ - geocube
+ - geopandas
+ - geoviews-core
+ - gsw
+ - h5netcdf
+ - h5py
+ - holoviews
+ - hvplot
+ - intake
+ - intake-esm
+ - intake-geopandas
+ - intake-stac
+ - intake-xarray
+ - ipyleaflet
+ - ipywidgets
+ - jupyter-panel-proxy
+ - lz4
+ - matplotlib-base
+ - metpy
+ - nb_conda_kernels
+ - nbstripout
+ - nc-time-axis
+ - netcdf4
+ - nomkl
+ - numcodecs
+ - numpy
+ - pandas
+ - panel
+ - parcels
+ - prefect
+ - pyarrow
+ - pycamhd
+ - pydap
+ - pystac
+ - python-blosc
+ - python-gist
+ - python-graphviz
+ - rasterio
+ - rechunker
+ - rio-cogeo
+ - rioxarray
+ - s3fs>0.5
+ - sat-search
+ - sat-stac
+ - satpy
+ - scikit-image
+ - scikit-learn
+ - scipy
+ - sparse
+ - tiledb-py
+ - xarray
+ - xarrayutils
+ - xarray_leaflet
+ - xarray-spatial
+ - xcape
+ - xcube
+ - xesmf
+ - xgcm
+ - xhistogram
+ - xlayers
+ - xmitgcm
+ - xpublish
+ - xrft
+ - zarr
+################################################################################
+# Packages needed for Swarm/Geomag (simply appended from swarm-dev ...)
+################################################################################
+ - python=3.8*
+ - pip
+ # Build tools
+ - conda-build
+ - conda-verify
+ - fortran-compiler
+ - cxx-compiler
+ - make
+ # Generic dev stuff
+ - pytest
+ - flake8
+ - pylint
+ # Doc stuff
+ - sphinx
+ - sphinx_rtd_theme
+ - nbsphinx
+ - pandoc
+ # Jupyter & associated tools/extensions
+ - jupyter
+ - 'jupyterlab<3'
+ - jupyterlab-git
+#  - nb_conda_kernels
+ - nbgitpuller
+ - nbstripout
+ - nbdime
+ - nbresuse
+ - jupyter-resource-usage
+#  - nbval
+ - ipywidgets
+ - ipyparallel
+ - ipympl
+ - watermark
+ # To add?
+  # https://github.com/jtpio/jupyterlab-system-monitor
+ # Scientific Python (+ geospatial)
+ - numpy
+ - scipy
+ - matplotlib
+ - pandas
+ - geopandas
+ - xarray
+ - dask
+ - dask-ml
+ - dask-labextension
+ - netcdf4
+ - h5py
+ - pytables
+ - networkx
+ - zarr
+ - intake
+ - intake-xarray
+ - cartopy
+ - ipyleaflet
+ # Holoviz advanced visualisation tools
+ - holoviews
+ - hvplot
+ - geoviews
+ - datashader
+ - param
+ - colorcet
+ - pyct[cmd]
+ - fastparquet
+ - panel
+ - jupyter-panel-proxy
+ - selenium
+ # Pip reqs won't be tracked by conda-lock so must be installed separately
+ # (breaking reproducability)
+#  - pip:
+#    # Swarm / geomag
+#    - viresclient
+#    - hapiclient
+#   #  - chaosmagpy
+#   #  - magpysv
+#    # Can't get apexpy to install (problems with fortran compiler?)
+#   #  - pyamps
+#   #  - apexpy
