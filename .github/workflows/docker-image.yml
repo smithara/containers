@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build :swarm-dev:
 
     runs-on: ubuntu-latest
 
@@ -20,10 +20,50 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Build :swarm-dev
+    - name: Build image :swarm-dev
       if: success()
       run: docker build swarm-dev/ --tag swarm-dev:$(date +%s)
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
         args: push swarmdisc/swarm-dev:$(date +%s)
+
+  build :pangeo-swarm:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to docker hub
+      if: success()
+      uses: actions-hub/docker/login@master
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build image :pangeo-swarm
+      if: success()
+      run: docker build pangeo-swarm/ --tag pangeo-swarm:$(date +%s)
+    - name: Push to docker hub
+      uses: actions-hub/docker@master
+      with:
+        args: push swarmdisc/pangeo-swarm:$(date +%s)
+
+  build :swarm-dashboards:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to docker hub
+      if: success()
+      uses: actions-hub/docker/login@master
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build image :swarm-dashboards
+      if: success()
+      run: docker build swarm-dashboards/ --tag swarm-dashboards:$(date +%s)
+    - name: Push to docker hub
+      uses: actions-hub/docker@master
+      with:
+        args: push swarmdisc/swarm-dashboards:$(date +%s)
