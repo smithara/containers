@@ -1,0 +1,28 @@
+name: Build swarm-dashboards
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'swarm-dashboards/*'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'swarm-dashboards/*'
+
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Login to docker hub
+  if: success()
+  uses: actions-hub/docker/login@master
+  env:
+    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+- name: Build image :swarm-dashboards
+  if: success()
+  run: docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:latest
+- name: Push to docker hub
+  uses: actions-hub/docker@master
+  with:
+    args: push swarmdisc/swarm-dashboards:latest)

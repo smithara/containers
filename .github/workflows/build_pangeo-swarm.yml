@@ -1,0 +1,28 @@
+name: Build pangeo-swarm
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'pangeo-swarm/*'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'pangeo-swarm/*'
+
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Login to docker hub
+  if: success()
+  uses: actions-hub/docker/login@master
+  env:
+    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+- name: Build image :pangeo-swarm
+  if: success()
+  run: docker build pangeo-swarm/ --tag swarmdisc/pangeo-swarm:latest
+- name: Push to docker hub
+  uses: actions-hub/docker@master
+  with:
+    args: push swarmdisc/pangeo-swarm:latest)

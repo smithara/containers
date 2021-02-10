@@ -1,0 +1,28 @@
+name: Build swarm-dev
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'swarm-dev/*'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'swarm-dev/*'
+
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Login to docker hub
+  if: success()
+  uses: actions-hub/docker/login@master
+  env:
+    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+- name: Build image :swarm-dev
+  if: success()
+  run: docker build swarm-dev/ --tag swarmdisc/swarm-dev:latest
+- name: Push to docker hub
+  uses: actions-hub/docker@master
+  with:
+    args: push swarmdisc/swarm-dev:latest)
