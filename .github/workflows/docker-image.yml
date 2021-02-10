@@ -22,11 +22,11 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build image :swarm-dev
       if: success()
-      run: docker build swarm-dev/ --tag swarm-dev:$(date +%s)
+      run: docker build swarm-dev/ --tag swarmdisc/swarm-dev:latest
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
-        args: push swarmdisc/swarm-dev:$(date +%s)
+        args: push swarmdisc/swarm-dev:latest)
 
   build_pangeo-swarm:
 
@@ -42,11 +42,11 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build image :pangeo-swarm
       if: success()
-      run: docker build pangeo-swarm/ --tag pangeo-swarm:$(date +%s)
+      run: docker build pangeo-swarm/ --tag swarmdisc/pangeo-swarm:latest
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
-        args: push swarmdisc/pangeo-swarm:$(date +%s)
+        args: push swarmdisc/pangeo-swarm:latest
 
   build_swarm-dashboards:
 
@@ -62,8 +62,8 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build image :swarm-dashboards
       if: success()
-      run: docker build swarm-dashboards/ --tag swarm-dashboards:$(date +%s)
+      run: docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:latest
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
-        args: push swarmdisc/swarm-dashboards:$(date +%s)
+        args: push swarmdisc/swarm-dashboards:latest
