@@ -8,8 +8,8 @@ on:
       - '.github/workflows/build_swarm-dashboards.yml'
 
 env:
-  IMAGE_NAME: swarmdisc/swarm-dashboards
-  DOCKERFILE_PATH: swarm-dashboards/
+  IMAGE_NAME: "swarmdisc/swarm-dashboards"
+  DOCKERFILE_PATH: "swarm-dashboards/"
   GITHUB_SHA: ${{ github.sha }}
 
 jobs:
@@ -29,6 +29,7 @@ jobs:
         SHA7="${GITHUB_SHA::7}"
         DOCKER_TAG=$SHA7
         IMAGE_SPEC="${IMAGE_NAME}:${DOCKER_TAG}"
+        echo "Attempting to build ${IMAGE_SPEC}"
         echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
         echo "IMAGE_SPEC=${IMAGE_SPEC}" >> $GITHUB_ENV
     - name: Build image
