@@ -31,10 +31,8 @@ jobs:
         echo "SHA_TAG=${SHA_TAG}" >> $GITHUB_ENV
     - name: Build image
       if: success()
-      run: docker build ${{ env.DOCKERFILE_PATH }}
-              --tag "${{ env.DOCKER_IMAGE_NAME }}:${{ env.SHA_TAG }}"
-              --tag "${{ env.DOCKER_IMAGE_NAME }}:latest"
-    - name: Push to docker hub
-      uses: actions-hub/docker@master
-      with:
-        args: push ${{ env.DOCKER_IMAGE_NAME }} --all-tags
+      run: |
+        docker build ${{ env.DOCKERFILE_PATH }} \
+          --tag "${{ env.DOCKER_IMAGE_NAME }}:${{ env.SHA_TAG }}" \
+          --tag "${{ env.DOCKER_IMAGE_NAME }}:latest"
+        docker push ${{ env.DOCKER_IMAGE_NAME }} --all-tags
