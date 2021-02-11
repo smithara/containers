@@ -17,12 +17,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-    - name: Login to docker hub
-      if: success()
-      uses: actions-hub/docker/login@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Set Job Environment Variables
       run: |
         CALVER="$( date -u '+%Y.%m.%d' )"
@@ -30,9 +29,10 @@ jobs:
         SHA_TAG=$SHA7
         echo "SHA_TAG=${SHA_TAG}" >> $GITHUB_ENV
     - name: Build image
-      if: success()
-      run: |
-        docker build ${{ env.DOCKERFILE_PATH }} \
-          --tag "${{ env.DOCKER_IMAGE_NAME }}:${{ env.SHA_TAG }}" \
-          --tag "${{ env.DOCKER_IMAGE_NAME }}:latest"
-        docker push --all-tags ${{ env.DOCKER_IMAGE_NAME }} 
+      uses: docker/build-push-action@v2
+      with:
+        context: "${{ env.DOCKERFILE_PATH }}"
+        push: true
+        tags: |
+          "${{ env.DOCKER_IMAGE_NAME }}:${{ env.SHA_TAG }}"
+          "${{ env.DOCKER_IMAGE_NAME }}:latest"
