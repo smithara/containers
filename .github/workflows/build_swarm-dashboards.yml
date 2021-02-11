@@ -6,11 +6,11 @@ on:
     paths:
       - 'swarm-dashboards/*'
       - '.github/workflows/build_swarm-dashboards.yml'
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'swarm-dashboards/*'
-      - '.github/workflows/build_swarm-dashboards.yml'
+
+env:
+  IMAGE_NAME: swarmdisc/swarm-dashboards
+  DOCKERFILE_PATH: swarm-dashboards/
+  GITHUB_SHA: ${{ github.sha }}
 
 jobs:
   build_docker_image:
@@ -23,12 +23,18 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Build image :swarm-dashboards
-      if: success()
+    - name: Set Job Environment Variables
       run: |
-        DOCKER_TAG="${GITHUB_SHA::7}"
-        docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:${DOCKER_TAG}
+        CALVER="$( date -u '+%Y.%m.%d' )"
+        SHA7="${GITHUB_SHA::7}"
+        DOCKER_TAG=$SHA7
+        IMAGE_SPEC="${IMAGE_NAME}:${DOCKER_TAG}"
+        echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
+        echo "IMAGE_SPEC=${IMAGE_SPEC}" >> $GITHUB_ENV
+    - name: Build image
+      if: success()
+      run: docker build ${{ env.DOCKERFILE_PATH }} --tag ${{ env.IMAGE_SPEC }}
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
-        args: push swarmdisc/swarm-dashboards:${DOCKER_TAG}
+        args: push ${{ env.IMAGE_SPEC }}
