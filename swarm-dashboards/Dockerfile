@@ -1,6 +1,8 @@
-FROM pangeo/pangeo-notebook:2021.01.24
+FROM swarmdisc/swarm-dev
 
-RUN  ${NB_PYTHON_PREFIX}/bin/pip install git+https://github.com/ESA-VirES/VirES-Python-Client@staging#egg=viresclient
+RUN pip uninstall -y viresclient
+RUN pip install --upgrade \
+        git+https://github.com/ESA-VirES/VirES-Python-Client@staging#egg=viresclient
 
 RUN git clone https://github.com/Swarm-DISC/Swarm_notebooks.git \
     && cd Swarm_notebooks \
@@ -8,4 +10,7 @@ RUN git clone https://github.com/Swarm-DISC/Swarm_notebooks.git \
 
 CMD viresclient set_token https://vires.services/ows $VIRES_TOKEN \
     && viresclient set_default_server https://vires.services/ows \
-    && panel serve Swarm_notebooks/dashboards/00_Product-Availability.ipynb
+    && export publicIP=$(curl -s ifconfig.me/ip) \
+    && echo "Trying to serve notebooks at http://$publicIP:5006" \
+    && panel serve Swarm_notebooks/dashboards/*.ipynb \
+	    --allow-websocket-origin=$publicIP:5006
