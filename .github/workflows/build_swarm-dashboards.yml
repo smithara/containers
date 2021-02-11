@@ -27,15 +27,14 @@ jobs:
       run: |
         CALVER="$( date -u '+%Y.%m.%d' )"
         SHA7="${GITHUB_SHA::7}"
-        DOCKER_TAG=$SHA7
-        IMAGE_SPEC="${DOCKER_IMAGE_NAME}:${DOCKER_TAG}"
-        echo "Attempting to build ${IMAGE_SPEC}"
-        echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
-        echo "IMAGE_SPEC=${IMAGE_SPEC}" >> $GITHUB_ENV
+        SHA_TAG=$SHA7
+        echo "SHA_TAG=${SHA_TAG}" >> $GITHUB_ENV
     - name: Build image
       if: success()
-      run: docker build ${{ env.DOCKERFILE_PATH }} --tag ${{ env.IMAGE_SPEC }}
+      run: docker build ${{ env.DOCKERFILE_PATH }}  \
+              --tag "${{ env.DOCKER_IMAGE_NAME }}:${{ env.SHA_TAG }}"
+              --tag "${{ env.DOCKER_IMAGE_NAME }}:latest"
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
-        args: push ${{ env.IMAGE_SPEC }}
+        args: push ${{ env.DOCKER_IMAGE_NAME }} --all-tags
