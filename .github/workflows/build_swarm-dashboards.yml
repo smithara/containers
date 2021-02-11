@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      run: DOCKER_TAG="${GITHUB_SHA::7}"
     - name: Login to docker hub
       if: success()
       uses: actions-hub/docker/login@master
@@ -26,7 +25,9 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build image :swarm-dashboards
       if: success()
-      run: docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:${DOCKER_TAG}
+      run: |
+        DOCKER_TAG="${GITHUB_SHA::7}"
+        docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:${DOCKER_TAG}
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
