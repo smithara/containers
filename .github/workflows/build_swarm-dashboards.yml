@@ -5,16 +5,19 @@ on:
     branches: [ main ]
     paths:
       - 'swarm-dashboards/*'
+      - '.github/workflows/build_swarm-dashboards.yml'
   pull_request:
     branches: [ main ]
     paths:
       - 'swarm-dashboards/*'
+      - '.github/workflows/build_swarm-dashboards.yml'
 
 jobs:
   build_docker_image:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      run: DOCKER_TAG="${GITHUB_SHA::7}"
     - name: Login to docker hub
       if: success()
       uses: actions-hub/docker/login@master
@@ -23,8 +26,8 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build image :swarm-dashboards
       if: success()
-      run: docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:latest
+      run: docker build swarm-dashboards/ --tag swarmdisc/swarm-dashboards:${DOCKER_TAG}
     - name: Push to docker hub
       uses: actions-hub/docker@master
       with:
-        args: push swarmdisc/swarm-dashboards:latest
+        args: push swarmdisc/swarm-dashboards:${DOCKER_TAG}
