@@ -9,6 +9,8 @@ on:
     branches: [ main ]
     paths:
       - 'swarm-dev/*'
+  schedule:
+    - cron: "0 8 * * 1"  # Every Monday at 8am UTC
 
 jobs:
   build_docker_image:
