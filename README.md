@@ -48,19 +48,7 @@ docker run --rm -it -p 8890:8890 -v XXXXX:/home/jovyan -t pangeo-swarm jupyter l
 
 ## `swarm-dashboards`
 
-A docker image to directly serve a panel dashboard, given the VirES access token as `$VIRES_TOKEN`.
-
-**Development**:
-```
-cd swarm-dashboards
-docker build . -t swarm-dashboards
-docker run --rm -it -p 5006:5006 -e "VIRES_TOKEN=$VIRES_TOKEN" -t swarm-dashboards
-```
-**Direct from docker hub**:  
-<https://hub.docker.com/r/swarmdisc/swarm-dashboards>
-```
-docker run --rm -it -p 5006:5006 -e "VIRES_TOKEN=$VIRES_TOKEN" swarmdisc/swarm-dashboards
-```
+A docker image to directly serve panel dashboards may not be necessary - just use a specific build of `swarm-dev` with a starting script (TBC).
 
 
 ## TODO
