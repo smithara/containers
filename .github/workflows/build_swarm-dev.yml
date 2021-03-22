@@ -5,10 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'swarm-dev/*'
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'swarm-dev/*'
+      - '.github/workflows/build_swarm-dev.yml'
   schedule:
     - cron: "0 8 * * 1"  # Every Monday at 8am UTC
 
