@@ -1,0 +1,55 @@
+# A fairly minimal scientific development environment with JupyterLab
+name: jupyter
+# Only use conda-forge and don't mix channels
+channels:
+ - conda-forge
+dependencies:
+ # Environment management tools
+ - mamba  #  a drop-in faster replacement for conda env solving
+ - python
+ - pip
+ # - nb_conda_kernels  # lets Jupyter auto-discover other conda kernels
+ # Jupyter & interactive stuff
+ - jupyterlab
+ - ipywidgets
+ - ipympl
+ - jupyter-resource-usage
+ - jupyterlab-git
+ # Misc tools useful for development
+ - watermark
+ # Scientific Python
+ - numpy
+ - scipy
+ - sympy
+ - dask
+ - dask-ml
+ - dask-labextension
+ # Data tools
+ - pandas
+ - xarray
+ - netcdf4
+ - h5py
+ - pytables
+ - networkx
+ - zarr
+ - intake
+ - intake-xarray
+ # Visualisation
+ - matplotlib
+ - seaborn
+ # Geospatial
+ - geopandas
+ - cartopy
+ - ipyleaflet
+ # # Holoviz advanced visualisation tools
+ # - holoviews
+ # - hvplot
+ # - geoviews
+ # - datashader
+ # - param
+ # - colorcet
+ # - pyct[cmd]
+ # - fastparquet
+ # - panel
+ # - jupyter-panel-proxy
+ # - selenium
