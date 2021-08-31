@@ -5,42 +5,43 @@ channels:
  - conda-forge
 dependencies:
  # Environment management tools
- - mamba  #  a drop-in faster replacement for conda env solving
- - python
- - pip
+ #  mamba is a drop-in faster replacement for conda env solving
+ - mamba=0.15
+ - python=3.9
+ - pip=21.2
  # - nb_conda_kernels  # lets Jupyter auto-discover other conda kernels
  # Jupyter & interactive stuff
- - jupyterlab
- - ipywidgets
- - ipympl
- - jupyter-resource-usage
- - jupyterlab-git
+ - jupyterlab=3.1
+ - ipywidgets=7.6
+ - ipympl=0.7
+ - jupyter-resource-usage=0.6
+ - jupyterlab-git=0.32
  # Misc tools useful for development
- - watermark
+ - watermark=2.2
  # Scientific Python
- - numpy
- - scipy
- - sympy
- - dask
- - dask-ml
- - dask-labextension
+ - numpy=1.21
+ - scipy=1.7
+ - sympy=1.8
+ - dask=2021.8
+ - dask-ml=1.9
+ - dask-labextension=5.1
  # Data tools
- - pandas
- - xarray
- - netcdf4
- - h5py
- - pytables
- - networkx
- - zarr
- - intake
- - intake-xarray
+ - pandas=1.3
+ - xarray=0.19
+ - netcdf4=1.5
+ - h5py=3.3
+ - pytables=3.6
+ - networkx=2.6
+ - zarr=2.9
+ - intake=0.6
+ - intake-xarray=0.19
  # Visualisation
- - matplotlib
- - seaborn
+ - matplotlib=3.4
+ - seaborn=0.11
  # Geospatial
- - geopandas
- - cartopy
- - ipyleaflet
+ - geopandas=1.3
+ - cartopy=0.19
+ - ipyleaflet=0.14
  # # Holoviz advanced visualisation tools
  # - holoviews
  # - hvplot
