@@ -1,0 +1,63 @@
+# A stack to be used with swarmx & Swarm Notebooks
+name: swarm
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pip
+  - ipykernel
+  - cxx-compiler
+  - fortran-compiler
+  - ipyparallel
+  - watermark
+  # Requirements of swarmx
+  - numpy
+  - scipy
+  - xarray
+  - pandas
+  - matplotlib
+  - cartopy
+  # Development tools
+  - pytest
+  - flake8
+  # Data / geospatial / visualisation
+  - dask
+  - dask-ml
+  - h5py
+  - pytables
+  - networkx
+  - zarr
+  - intake
+  - intake-xarray
+  - seaborn
+  - geopandas
+  - geojson
+  - ipyleaflet
+  # Holoviz
+  - holoviews
+  - hvplot
+  - geoviews
+  - datashader
+  - param
+  - colorcet
+  - pyct[cmd]
+  - fastparquet
+  - panel
+  - jupyter-panel-proxy
+  - selenium
+  # For JLab interactivity with certain packages
+  - ipympl
+  - pyviz_comms
+  - dask-labextension
+  - pip:
+    # requirements of swarmx
+    - cdflib
+    - viresclient
+    - hapiclient
+    # Misc space/geomag
+    - apexpy
+    - aacgmv2
+    - spacepy
+    - pyamps
+    - chaosmagpy
+

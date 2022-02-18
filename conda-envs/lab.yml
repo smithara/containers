@@ -1,0 +1,18 @@
+# An IDE-like environment with both JupyterLab & VSCode
+# The JupyterLab detects other conda environments
+#  (as long as they have ipykernel installed)
+name: lab
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  # Development environment:
+  - jupyterlab=3.2
+  - code-server=3
+  - jupyter-vscode-proxy=0.1
+  - nb_conda_kernels
+  - jupyterlab-git
+  - jupyterlab-lsp
+  - jupyter-lsp-python
+  - jupyter-resource-usage
+  - jupyterlab-link-share
