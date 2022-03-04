@@ -20,6 +20,7 @@ dependencies:
   # Development tools
   - pytest
   - flake8
+  - jupyter-book
   # Data / geospatial / visualisation
   - dask
   - dask-ml
